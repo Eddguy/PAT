@@ -1,3 +1,32 @@
+/*
+*  _________        _________       ________________
+* |         |      |         |     |                |
+* |   ____   |    |   _____   |    |                |
+* |  |    |  |   |   |     |   |   |____        ____|
+* |  |    |  |   |   |     |   |        |      |
+* |  |____|  |   |   |_____|   |        |      |
+* |     ____|    |   _______   |        |      |
+* |    |         |  |      |   |        |      |
+* |    |         |  |      |   |        |      |
+* |____|         |__|      |___|        |______|    
+* 
+*
+* NODE.js Server for PAT - Programming AI Tutor
+* --------------------------------------------------
+* This file serves the main server for PAT
+* 
+* Features:
+* - Express to handle routing
+* - OpenAI integration
+* 
+*
+* Author: Eddie Cubas
+* Created: September 2024
+* License: MIT   
+* 
+*/
+
+
 // Import dependencies
 const express = require('express');
 const OpenAI = require('openai'); // New import syntax for version 4.63.0
