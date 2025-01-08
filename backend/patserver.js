@@ -75,7 +75,7 @@ app.post('/pat', async (req, res) => {
 });
 
 // Define local port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 // Start the server
 app.listen(PORT, () => {
