@@ -1,0 +1,24 @@
+Instructions on how to set up the development environment
+
+1. DEPENDICIES
+2. ENVIRONMENT VARIABLES
+3. FRONTEND
+4. BACKEND
+
+1. DEPENDICIES
+This project relies on node.js which can be downloaded here - https://nodejs.org/en/download
+Once installed, perform the command  `npm install` in both the frontend and backend folders to install their respective DEPENDICIES
+
+2. ENVIRONMENT VARIABLES
+This project relies on environment variables set up in .env files to function. All api keys must be declared here and the .env files SHOULD NEVER be shared with anyone.
+IF YOU ACIDENTALLY SHARE OR OTHERWISE COMPROMISE AN API KEY, NOTIFY AT ONCE AND TERMINATE THE KEY. IT IS UP TO YOU TO MAKE SURE YOUR API KEYS ARE SAFE.
+
+3. FRONTEND
+This project uses React for the frontend.
+Install React dependicies by going into the frontend folder and use the command `npm install`
+To run the frontend, go into the pat folder in the frontend folder and do `npm start`. To build, use `npm run build`
+
+4. BACKEND
+This project uses Node.js for the backend.
+Install backend dependicies by going into the backend folder and use the command `npm install`
+To run the backend, go into the backend folder and do `npm run start`. 
