@@ -5,19 +5,25 @@ import Editor from "./Editor";
 
 const Workspace = () => {
     return (
-        <div class="workspace_container" >
-            <div class="pat_container" id="container">
-                <Display />
-                <Pat />
+        <><div className="workspace_wrapper">
+            <div className="workspace_container">
+                <div className="display_container" id="container">
+                    <Display />
+                    <div className="slider"></div>
+                    <div className="pat_container">
+                        <Pat />
+                    </div>
+                </div>
+
+                <div className="editor_container" id="container">
+                    <Editor />
+
+                </div>
+
             </div>
-
-            <div class="editor_container" id="container">
-                <Editor />
-
-            </div>
-
-        </div> 
-        
+            
+            <div className="workspace_glow"></div> {/* Div to create glow effect behind workspace */}
+        </div></>
 
      );
 }
