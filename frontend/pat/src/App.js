@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import Workspace from "./Workspace/Workspace";
 import Home from "./Home";
 import { useEffect } from "react";
+import EditorSandbox from "./Workspace/EditorSandbox";
+import Pat from "./Workspace/Pat";
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <Routes>
           <Route path="home" element={<Home />} />
           <Route path="/" element={<Workspace />} />
+          <Route path="/editor" element={<EditorSandbox />} />
+          <Route path="/pat" element={<Pat />} />
         </Routes>
       </BackgroundWrapper>
     </Router>
