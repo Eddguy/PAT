@@ -10,15 +10,47 @@ Editor.js
 
 
 /******************************************************************
-Variables
-1-27-25
-TODO: Create project color scheme
+General Properties
+2-17-25
 ******************************************************************/
 :root {
+  /* PROJECT THEME COLORS*/
   --main-bg-color: #2D3250;
   --secondary-bg-color: #424769;
   --tertiary-bg-color: #7077A1;
-  --highligh-color: #5F76FE;
+  --highlight-color: #5F76FE;
+  /* CUSTOM SCROLLBAR*/
+  --scrollbar-width: 8px;
+  --scrollbar-track-color: transparent;
+  --scrollbar-thumb-color: var(--tertiary-bg-color);
+  --scrollbar-thumb-hover-color: var(---highlight-color);
+}
+
+
+
+/* Apply to all scrollable elements */
+* {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* WebKit-based Browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
 }
 
 
@@ -52,7 +84,6 @@ Workspace - Component 1
   position: relative;
   display: flex;
   flex-direction: row;
-  padding: 5px 0;
   height: 100%;
   width: 100%;
   color: white;
@@ -140,82 +171,125 @@ Pat - Component 3
 
 .pat_container {
   width: 100%;
+  height: 100%;
 }
 
 .pat_container h2 {
-  text-align: left;
+  position: relative;
+  right: 0.5%;
+  top: 0.5%;
   color: grey;
-  opacity: 0.5;
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.pat_content,
+.chat_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .chat_container {
-  
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #EAEDFD;
-  width: 100%;
-  margin: 5px;
-  border-radius: 10px;
+  justify-content: space-between;
 }
 
 .chat_content {
-  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 95%;
   height: 100%;
-  min-height: 20vh;
+  max-height: fit-content;
+  padding: 10px;
   background-color: transparent;
+  overflow-y: auto;
 }
 
-
 .input_container {
-
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto 10px 5px 10px;
-  height: 5vh;
   width: 100%;
+  height: 5vh;
+  margin: auto 10px 0;
   background-color: black;
-  border-radius: 10px;
-  
 }
 
 .input_main {
+  flex: 1;
   display: flex;
-  justify-content: left;
   align-items: center;
   width: 90%;
-  padding: 5px;
+  max-height: 30px;
+  padding: 8px;
   margin: 5px;
+  font-size: 1.8rem;
   background-color: white;
   border-radius: 10px;
   color: black;
+  border: none;
+  outline: none;
 }
 
-.regenerate_button {
-  margin-right: 5px;
-  background-color: var(--highligh-color);
-  border-radius: 10px;
-}
-
+.regenerate_button,
 .send_button {
-  margin-left: 5px;
-  background-color: var(--highligh-color);
+  margin: 0 10px;
   border-radius: 10px;
+  background-color: rgb(92, 92, 92);
+  cursor: pointer;
 }
 
-.send_button:hover, .regenerate_button:hover {
-  background-color: blue;
-  transition: 0.5s;
-  cursor: pointer;
-} 
+.regenerate_button:hover,
+.send_button:hover {
+  background-color: grey;
+  transition: 0.1s;
+}
 
 .chat_button {
   fill: white;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   padding: 5px;
 }
+
+.chat_button:hover {
+  fill: white;
+  transition: 0.5s;
+}
+
+.message {
+  position: relative;
+  z-index: 1;
+  padding: 10px 15px;
+  margin: 5px 10px;
+  border-radius: 8px;
+  max-width: 70%;
+  word-wrap: break-word;
+  font-size: 1rem;
+  color: black;
+}
+
+.message.user {
+  color: white;
+  background-color: blue;
+  align-self: flex-end;
+  text-align: right;
+  border-radius: 10px 10px 0px 10px;
+}
+
+.message.ai {
+  background-color: white;
+  align-self: flex-start;
+  text-align: left;
+  border-radius: 10px 10px 10px 0px;
+}
+
 
 /***************************************************************
 Editor - Component 4

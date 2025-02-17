@@ -1,31 +1,85 @@
+import { useState, useRef } from "react";
 import { ImSpinner11 } from "react-icons/im";
-import { FaArrowUp   } from "react-icons/fa";
-
+import { FaArrowUp } from "react-icons/fa";
 
 const Pat = () => {
-    return ( 
-<div className="pat_container">
-    
-    <div className="chat_container" >
-       {/*TODO:: ADD TEXT THAT SAYS "PAT AI" WITHOUT AFFECTING THE INPUT CONTAINER */}
-        <div className="chat_content">
-            {/** TODO: CHAT FUNCTION */}
-        </div>
-        <div className="input_container">
-            <div className="regenerate_button">
-                <ImSpinner11 className="chat_button" />
-            </div>
-            <div className="input_main">
-                Ask PAT
-            </div>
-            <div className="send_button">
-                <FaArrowUp   className="chat_button"/>
-            </div>
-        </div>
-    </div>
-</div>
+    const [messages, setMessages] = useState([]);
+    const [messageHistory, setMessageHistory] = useState([]);
+    const [input, setInput] = useState("");
+    const [sending, setSending] = useState(false);
+    const lastUserMessageIndex = useRef(-1);
 
-     );
-}
- 
+    const sendMessage = async () => {
+        if (input.trim() === "") return;
+
+        const userMessage = { text: input, user: "user", role: "user" };
+        const userMessageHistory = { content: input, role: "user" };
+
+        setMessages((prev) => [...prev, userMessage]);
+        setMessageHistory((prev) => [...prev, userMessageHistory]);
+        lastUserMessageIndex.current = messages.length;
+
+        setInput("");
+        setSending(true);
+
+        try {
+            const response = await fetch("http://127.0.0.1:8000/pat", { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: input, messageHistory: [...messageHistory, userMessageHistory] }),
+            });
+
+            if (!response.ok) throw new Error("Failed to fetch AI response");
+
+            const data = await response.json();
+            const aiMessage = { text: data.responseText, user: "ai" }; // Fixed responseText key
+            setMessages((prev) => [...prev, aiMessage]);
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Internal Server Error");
+        } finally {
+            setSending(false);
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+        }
+    };
+
+    return (
+        <div className="pat_content">
+            <div className="chat_container">
+                
+                <div className="chat_content">
+                <h2>PAT AI</h2>
+                    {messages.map((msg, index) => (
+                        <div key={index} className={`message ${msg.user}`}>
+                            {msg.text}
+                        </div>
+                    ))}
+                </div>
+                <div className="input_container">
+                    <div className="regenerate_button">
+                        <ImSpinner11 className="chat_button" />
+                    </div>
+                    <input
+                        className="input_main"
+                        type="text"
+                        placeholder="Ask Pat"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={handleKeyPress}
+                    />
+                    <div className="send_button" onClick={sendMessage}>
+                        {sending ? <ImSpinner11 className="chat_button" /> : <FaArrowUp className="chat_button" />}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export default Pat;
