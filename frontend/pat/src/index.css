@@ -59,11 +59,27 @@ General Properties
 1-29-25
 *****************************************************************/
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 
 /***************************************************************
 Navbar
 1-27-25
 ****************************************************************/
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 5vh;
+  background-color: black;
+}
 
 /***************************************************************
 Workspace - Component 1
@@ -73,11 +89,13 @@ Workspace - Component 1
 
 
 .workspace_wrapper {
+  padding-top: 5vh;
+  margin-top: 1vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 99vh;
 }
 
 .workspace_container {
@@ -88,10 +106,10 @@ Workspace - Component 1
   width: 100%;
   color: white;
   background-color: var(--secondary-bg-color);
-  border-top: 10px var(--tertiary-bg-color) solid;
+  border-top: 5px var(--tertiary-bg-color) solid;
   border-left: 1px var(--tertiary-bg-color) solid;
   border-right: 1px var(--tertiary-bg-color) solid;
-  border-radius: 10px;
+  border-radius: 10px 10px 0px 0px;
   overflow: hidden;
   z-index: 1;
 }
@@ -331,7 +349,7 @@ Editor - Component 4
   flex-direction: column;
   width: 100%;
   padding-bottom: 10px;
-  background-color: red;
+  background-color: var(--main-bg-color);
 }
 
 .editor_sandbox {

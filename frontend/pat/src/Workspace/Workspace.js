@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Display from "./Display";
 import Pat from "./Pat";
 import Editor from "./Editor";
+import Navbar from "./Navbar";
 
 const Workspace = () => {
     const [displayHeight, setDisplayHeight] = useState(50);
@@ -37,6 +38,10 @@ const Workspace = () => {
     }, []);
 
     return (
+        <div >
+            <Navbar />
+        
+        
         <div className="workspace_wrapper">
             <div className="workspace_glow"></div>
             <div className="workspace_container">
@@ -54,6 +59,7 @@ const Workspace = () => {
                     <Editor />
                 </div>
             </div>
+        </div>
         </div>
     );
 };

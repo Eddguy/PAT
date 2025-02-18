@@ -4,6 +4,7 @@ import Home from "./Home";
 import { useEffect } from "react";
 import EditorSandbox from "./Workspace/EditorSandbox";
 import Pat from "./Workspace/Pat";
+import Navbar from "./Workspace/Navbar";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="/" element={<Workspace />} />
           <Route path="/editor" element={<EditorSandbox />} />
-          <Route path="/pat" element={<Pat />} />
+          <Route path="/nav" element={<Navbar />} />
         </Routes>
       </BackgroundWrapper>
     </Router>
