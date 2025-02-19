@@ -1,0 +1,65 @@
+/*
+*  _________        _________       ________________
+* |         |      |         |     |                |
+* |   ____   |    |   _____   |    |                |
+* |  |    |  |   |   |     |   |   |____        ____|
+* |  |    |  |   |   |     |   |        |      |
+* |  |____|  |   |   |_____|   |        |      |
+* |     ____|    |   _______   |        |      |
+* |    |         |  |      |   |        |      |
+* |    |         |  |      |   |        |      |
+* |____|         |__|      |___|        |______|    
+*
+* Editor Theme 2/19/25
+*/
+
+.ace-pat {
+    background-color: #0d0d25; /* background */
+    color: #FFF8DC; /* text color */
+}
+
+.ace-pat .ace_cursor {
+    color: #FF4500; /* cursor */
+}
+
+.ace-pat .ace_marker-layer .ace_selection {
+    background: #c369ff; /* higlight */
+    opacity: 0.2; 
+}
+
+.ace-pat .ace_marker-layer .ace_active-line {
+    background: #191970; /* active line */
+}
+
+.ace-pat .ace_gutter {
+    background: #3d3958; /* gutter */
+    color: #FFF8DC; /* gutter text */
+}
+
+.ace-pat .ace_gutter-active-line {
+    background-color: #8B0000; /*gutter active line */
+}
+
+.ace-pat .ace_keyword {
+    color: #ff9c08; /* keywork */
+}
+
+.ace-pat .ace_string {
+    color: #da4cbb; /* string */
+}
+
+.ace-pat .ace_comment {
+    color: #4682B4; /* comment */
+}
+
+.ace-pat .ace_entity.ace_name.ace_function {
+    color: #e2ee3d; /* function */
+}
+
+.ace-pat .ace_variable {
+    color: #DC143C; /* variable */
+}
+
+.ace-pat .ace_constant.ace_numeric {
+    color: #b06be9; /* number */
+}
