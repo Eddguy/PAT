@@ -3,6 +3,9 @@ import Display from "./Display";
 import Pat from "./Pat";
 import Editor from "./Editor";
 import Navbar from "./Navbar";
+import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
+
+
 
 const Workspace = () => {
     const [displayHeight, setDisplayHeight] = useState(50);
@@ -15,13 +18,27 @@ const Workspace = () => {
     const handleMouseMove = (e) => {
         if (isResizing.current) {
             const workspaceHeight = window.innerHeight * 0.8;
-            const newHeight = (e.clientY / workspaceHeight) * 100;
-
-            if (newHeight >= 0 && newHeight <= 100) {
-                setDisplayHeight(newHeight);
+            let newHeight = (e.clientY / workspaceHeight) * 100;
+    
+            // Set snapping thresholds
+            const minThreshold = 5; // If below this, snap to minHeight
+            const maxThreshold = 95; // If above this, snap to maxHeight
+            const minHeight = 0; // Minimum height value
+            const maxHeight = 100; // Maximum height value
+    
+            if (newHeight < minThreshold) {
+                newHeight = minHeight; // Snap to min height
+            } else if (newHeight > maxThreshold) {
+                newHeight = maxHeight; // Snap to max height
             }
+    
+            setDisplayHeight(newHeight);
         }
     };
+    
+    const toggleHeight = () => {
+        setDisplayHeight((prevHeight) => (prevHeight === 100 ? 50 : 100));
+    }
 
     const handleMouseUp = () => {
         isResizing.current = false;
@@ -49,7 +66,17 @@ const Workspace = () => {
                     <div className="display_container" style={{ height: `${displayHeight}%` }}>
                         <Display />
                     </div>
-                    <div className="slider" onMouseDown={handleMouseDown}></div>
+                    <div className="slider" >
+                        <div className="slider_button" onMouseDown={handleMouseDown}>
+                            {/**These divs are purely for decoration */}
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <button className="slider_collapse" onClick={toggleHeight}>
+                        {displayHeight === 100 ? <FaPlusCircle className="slider_collapse_button" /> : <FaMinusCircle className="slider_collapse_button" />}
+                        </button>
+                    </div>
                     <div className="pat_container" style={{ height: `${100 - displayHeight}%` }}>
                         <Pat />
                     </div>
