@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { ImSpinner11 } from "react-icons/im";
-import { FaArrowUp } from "react-icons/fa";
+import { FaCircleArrowUp   } from "react-icons/fa6";
 
 const Pat = () => {
     const [messages, setMessages] = useState([]);
@@ -63,7 +63,9 @@ const Pat = () => {
                 </div>
                 <div className="input_container">
                     <div className="regenerate_button">
-                        <ImSpinner11 className="chat_button" />
+                        <div className="regenerate_button_inner">
+                            <ImSpinner11 className="chat_button" id="regenerate_button"/>
+                        </div>
                     </div>
                     <input
                         className="input_main"
@@ -74,7 +76,7 @@ const Pat = () => {
                         onKeyDown={handleKeyPress}
                     />
                     <div className="send_button" onClick={sendMessage}>
-                        {sending ? <ImSpinner11 className="chat_button" /> : <FaArrowUp className="chat_button" />}
+                        {sending ? <ImSpinner11 className="chat_button" /> : <FaCircleArrowUp   className="chat_button" />}
                     </div>
                 </div>
             </div>

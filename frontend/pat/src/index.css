@@ -81,7 +81,7 @@ Navbar
   z-index: 1000;
   width: 100%;
   height: 5vh;
-  background-color: var(--navbar);
+  background-color: var(--main-bg-color);
 }
 
 /***************************************************************
@@ -108,11 +108,12 @@ Workspace - Component 1
   flex-direction: row;
   height: 100%;
   width: 100%;
+  margin: 10px;
   color: white;
   background-color: var(--secondary-bg-color);
   overflow: hidden;
   z-index: 1;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .content_container {
@@ -150,12 +151,12 @@ Workspace - Component 1
   position: absolute;
   inset: 0px;
   width: 100%;
-  background-image: conic-gradient(from var(--angle), blue, cyan, aquamarine,  blue) ;
+  background-image: conic-gradient(from var(--angle), purple, blue, cyan, transparent) ;
   z-index: 0;
   border-radius: 10px;
-  filter: blur(0.5rem);
-  opacity: 0.5;
-  animation: 2s spin linear infinite;
+  filter: blur(0.8rem);
+  opacity: 0.2;
+  animation: 5s spin linear infinite;
 }
 
 @keyframes spin {
@@ -174,6 +175,10 @@ Display - Component 2
 
 .display_wrapper {
   display: block;
+}
+
+.display_content {
+  margin: 5px;
 }
 
 
@@ -197,7 +202,7 @@ Display - Component 2
   width: 50%;
   height: 80%;
   margin-left: auto;
-  background-image: linear-gradient(var(--main-bg-color), black);
+  background-color: var(--main-bg-color);
   border-radius: 20px;
   cursor: row-resize;
   user-select: none;
@@ -230,7 +235,7 @@ Display - Component 2
   margin-right: 10px;
   height: fit-content;
   width: fit-content;
-  background-color: white;
+  background-color: #e7e7e7;
   cursor: pointer;
   border: none;
   font-size: 14px;
@@ -239,7 +244,7 @@ Display - Component 2
 }
 
 .slider_collapse:hover {
-  background-color: rgb(180, 180, 180);
+  background-color: white;
 }
 
 .slider_collapse_button {
@@ -251,6 +256,20 @@ Display - Component 2
 .slider_collapse_button:hover {
   color: var(--button-hover);
 }
+
+.animate-height {
+  transition: height 0.3s ease-in-out;
+}
+
+
+.slider_collapse_button {
+    transition: transform 0.3s ease-in-out; /* Animation for collapse button */
+}
+
+.slider_collapse_button.rotate {
+    transform: rotate(180deg); /* Rotate button when expanded */
+}
+
 
 /***************************************************************
 Pat - Component 3
@@ -264,7 +283,7 @@ Pat - Component 3
 
 .pat_container h2 {
   position: relative;
-  right: 0.5%;
+  left: 1%;
   top: 0.5%;
   color: grey;
   opacity: 0.25;
@@ -292,7 +311,7 @@ Pat - Component 3
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 95%;
+  width: 100%;
   height: 100%;
   max-height: fit-content;
   padding: 10px;
@@ -328,27 +347,44 @@ Pat - Component 3
 
 .regenerate_button,
 .send_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 10px;
-  border-radius: 10px;
-  background-color: rgb(92, 92, 92);
+  height: fit-content;
+  width: fit-content;
+  border-radius: 20px;
+  background-color: #e7e7e7;
   cursor: pointer;
 }
 
-.regenerate_button:hover,
-.send_button:hover {
-  background-color: grey;
-  transition: 0.1s;
+.chat_button {
+  fill: black;
+  font-size: 2rem;
+  padding: 2px;
 }
 
-.chat_button {
-  fill: white;
-  font-size: 1.8rem;
-  padding: 5px;
-}
 
 .chat_button:hover {
-  fill: white;
+  fill: black;
   transition: 0.5s;
+}
+
+#regenerate_button {
+  fill: white;
+  font-size: 1.5rem;
+  margin: 5px;
+}
+
+.regenerate_button_inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  width: fit-content;
+  margin: 2px;
+  border-radius: 20px;
+  background-color: black;
 }
 
 .message {
@@ -368,14 +404,14 @@ Pat - Component 3
   background-color: blue;
   align-self: flex-end;
   text-align: right;
-  border-radius: 10px 10px 0px 10px;
+  border-radius: 20px 20px 0px 20px;
 }
 
 .message.ai {
   background-color: white;
   align-self: flex-start;
   text-align: left;
-  border-radius: 10px 10px 10px 0px;
+  border-radius: 20px 20px 20px 0px;
 }
 
 
