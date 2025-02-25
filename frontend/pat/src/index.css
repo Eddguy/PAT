@@ -365,15 +365,18 @@ Pat - Component 3
 }
 
 
-.chat_button:hover {
-  fill: black;
-  transition: 0.5s;
+.send_button:hover, .regenerate_button:hover {
+  background-color: white;
 }
 
 #regenerate_button {
+  fill: #e7e7e7;
+  font-size: 25px;
+  margin: 4px;
+}
+
+#regenerate_button:hover {
   fill: white;
-  font-size: 1.5rem;
-  margin: 5px;
 }
 
 .regenerate_button_inner {
