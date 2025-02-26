@@ -28,17 +28,16 @@
 
 
 // Import dependencies
-const express = require('express');
-const OpenAI = require('openai'); // New import syntax for version 4.63.0
-const cors = require('cors'); // Import CORS
-require('dotenv').config(); // Load environment variables
+const express = require("express");
+const OpenAI = require("openai");
+const cors = require("cors");
+const { exec } = require("child_process"); // Import exec for Python execution
+require("dotenv").config();
 
 // Initialize express
 const app = express();
-
-// Apply middleware
-app.use(cors()); // Allow cross-origin requests (necessary for frontend)
-app.use(express.json()); // Middleware to parse JSON body
+app.use(cors());
+app.use(express.json());
 
 // Initialize OpenAI client
 const client = new OpenAI({
@@ -50,11 +49,15 @@ async function getResponse(message) {
   try {
     const params = {
       messages: [
-        { role: 'system', content: 'You are a Python tutor. Respond in the context of Python programming. Refuse non-programming related requests aside from pleasantries. 300 max tokens' },
-        { role: 'user', content: message },
+        {
+          role: "system",
+          content:
+            "You are a Python tutor. Respond in the context of Python programming. Refuse non-programming related requests aside from pleasantries. 300 max tokens",
+        },
+        { role: "user", content: message },
       ],
-      model: 'gpt-4o-mini', // Adjust the model name if needed
-      max_tokens: 400, // Limit length of response
+      model: "gpt-4o-mini",
+      max_tokens: 400,
       temperature: 0,
     };
 
@@ -66,14 +69,17 @@ async function getResponse(message) {
 
     return chatCompletion.choices[0].message.content; // Extract content
   } catch (error) {
-    console.error("OpenAI API error:", error.response ? error.response.data : error.message);
+    console.error(
+      "OpenAI API error:",
+      error.response ? error.response.data : error.message
+    );
     throw error; // Propagate the error
   }
 }
 
 // Endpoint to handle chat requests
-app.post('/pat', async (req, res) => {
-  const { message } = req.body; // Extract message from request body
+app.post("/pat", async (req, res) => {
+  const { message } = req.body;
 
   if (!message) {
     return res.status(400).json({ error: "Message is required" });
@@ -83,7 +89,10 @@ app.post('/pat', async (req, res) => {
     const responseText = await getResponse(message);
     res.status(200).json({ responseText });
   } catch (error) {
-    console.error("API Error:", error.response ? error.response.data : error.message);
+    console.error(
+      "API Error:",
+      error.response ? error.response.data : error.message
+    );
     res.status(500).json({
       error: "Internal server error",
       details: error.response ? error.response.data : "Unknown error",
@@ -91,10 +100,38 @@ app.post('/pat', async (req, res) => {
   }
 });
 
-// Define local port
-const PORT = process.env.PORT || 8000;
+app.post("/execute", (req, res) => {
+  const { code } = req.body;
+
+  if (!code) {
+    return res.status(400).json({ error: "No code provided" });
+  }
+
+  try {
+    // Decode Base64 to get the Python code
+    const decodedCode = Buffer.from(code, "base64").toString("utf-8");
+
+    // Create a temporary file to store the Python script
+    const tempFilePath = path.join(__dirname, "temp_script.py");
+    fs.writeFileSync(tempFilePath, decodedCode, "utf-8");
+
+    // Execute the script using python3
+    exec(`python3 ${tempFilePath}`, (error, stdout, stderr) => {
+      // Delete the temporary file after execution
+      fs.unlinkSync(tempFilePath);
+
+      if (error) {
+        return res.status(500).json({ error: stderr || error.message });
+      }
+      res.json({ output: stdout.trim() });
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Invalid Base64 format" });
+  }
+});
 
 // Start the server
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/pat`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

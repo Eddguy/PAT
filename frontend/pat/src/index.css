@@ -211,7 +211,7 @@ Display - Component 2
 .slider_button > div {
   height: 2px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .slider_button > div:nth-child(1){

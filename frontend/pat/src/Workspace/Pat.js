@@ -70,7 +70,7 @@ const Pat = () => {
                     <input
                         className="input_main"
                         type="text"
-                        placeholder="Ask Pat"
+                        placeholder="Ask Pat..."
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyPress}
