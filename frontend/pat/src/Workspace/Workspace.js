@@ -6,6 +6,12 @@ import Navbar from "./Navbar";
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 
 const Workspace = () => {
+
+    useEffect(() => {
+        document.title = "PAT - Workspace";
+    }, []);
+
+
     const [displayHeight, setDisplayHeight] = useState(50);
     const [isExpanded, setIsExpanded] = useState(false); // Tracks if chat is expanded
     const [isAnimating, setIsAnimating] = useState(false); // Controls transition effect
