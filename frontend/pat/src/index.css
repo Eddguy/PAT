@@ -15,9 +15,9 @@ General Properties
 ******************************************************************/
 :root {
   /* PROJECT THEME COLORS*/
-  --main-bg-color: #2D3250;
-  --secondary-bg-color: #424769;
-  --tertiary-bg-color: #7077A1;
+  --main-bg-color: #181a24;
+  --secondary-bg-color: #222433;
+  --tertiary-bg-color: #2D3250;
   --highlight-color: #5F76FE;
   --navbar: #1b1b1b;
   --button: #161616;
@@ -92,6 +92,7 @@ Workspace - Component 1
 
 
 .workspace_wrapper {
+  background-image: conic-gradient(from 270deg, var(--main-bg-color), rgb(69, 67, 87) 10%, var(--secondary-bg-color), var(--main-bg-color));
   padding-top: 5vh;
   margin: 2px;
   position: relative;
@@ -99,7 +100,6 @@ Workspace - Component 1
   justify-content: center;
   align-items: center;
   height: 99.6vh;
-  
 }
 
 .workspace_container {
@@ -113,6 +113,7 @@ Workspace - Component 1
   background-color: var(--secondary-bg-color);
   overflow: hidden;
   z-index: 1;
+  border: 2px #2c2d3a solid;
   border-radius: 10px;
 }
 
@@ -151,7 +152,7 @@ Workspace - Component 1
   position: absolute;
   inset: 0px;
   width: 100%;
-  background-image: conic-gradient(from var(--angle), purple, blue, cyan, transparent) ;
+  background-image: conic-gradient(from var(--angle), var(--main-bg-color), blue, #353944, transparent) ;
   z-index: 0;
   border-radius: 10px;
   filter: blur(0.8rem);
