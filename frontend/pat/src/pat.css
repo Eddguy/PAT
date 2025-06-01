@@ -19,7 +19,7 @@
 }
 
 .ace-pat .ace_cursor {
-    color: #FF4500; /* cursor */
+    color: #fff; /* cursor */
 }
 
 .ace-pat .ace_marker-layer .ace_selection {
@@ -37,7 +37,7 @@
 }
 
 .ace-pat .ace_gutter-active-line {
-    background-color: #8B0000; /*gutter active line */
+    background-color: #04c4ff; /*gutter active line */
 }
 
 .ace-pat .ace_keyword {
@@ -45,11 +45,11 @@
 }
 
 .ace-pat .ace_string {
-    color: #da4cbb; /* string */
+    color: #ffa4eb; /* string */
 }
 
 .ace-pat .ace_comment {
-    color: #4682B4; /* comment */
+    color: #4ff865; /* comment */
 }
 
 .ace-pat .ace_entity.ace_name.ace_function {
