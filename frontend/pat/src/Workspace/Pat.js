@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import { ImSpinner11 } from "react-icons/im";
+import { IoReloadCircle } from "react-icons/io5";
+
 import { FaCircleArrowUp   } from "react-icons/fa6";
 
 const Pat = () => {
@@ -63,9 +65,7 @@ const Pat = () => {
                 </div>
                 <div className="input_container">
                     <div className="regenerate_button">
-                        <div className="regenerate_button_inner">
-                            <ImSpinner11 className="chat_button" id="regenerate_button"/>
-                        </div>
+                            <IoReloadCircle ClassName="r_button"/>      
                     </div>
                     <input
                         className="input_main"
