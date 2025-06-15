@@ -12,7 +12,10 @@ const Editor = () => {
                 <button className="submit-button">Submit</button>
             </div>
             <div className='editor_results'>
-
+                <div className='editor_results_test'>
+                    Test 1
+                    <div className="editor_results_tests_icon"/>
+                </div>
             </div>
 
         </div>
