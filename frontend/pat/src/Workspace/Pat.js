@@ -56,7 +56,7 @@ const Pat = () => {
             <div className="chat_container">
                 
                 <div className="chat_content">
-                <h2>PAT AI</h2>
+                <h2 id="unselect">PAT AI</h2>
                     {messages.map((msg, index) => (
                         <div key={index} className={`message ${msg.user}`}>
                             {msg.text}
