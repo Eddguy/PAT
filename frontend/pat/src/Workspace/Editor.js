@@ -19,6 +19,7 @@ const Editor = () => {
                 <div className='editor_results_test'>
                     Test 1
                     <div className="editor_results_tests_icon">
+                        {/*TODO::ADD FUNCTION TO CHANGE ICON BASED ON RESULTS*/}
                         {/*<FaCheck fill="lime"/>*/}
                         <RxCross1 color="red"/>
                     </div>
