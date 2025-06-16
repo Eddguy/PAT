@@ -32,6 +32,7 @@ const express = require("express");
 const OpenAI = require("openai");
 const cors = require("cors");
 const { exec } = require("child_process"); // Import exec for Python execution
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Initialize express
@@ -43,6 +44,11 @@ app.use(express.json());
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, // Use direct process.env access
 });
+
+// Import Routes
+const userRoutes = require("./routes/users"); 
+app.use("/users", userRoutes); 
+
 
 // Function to get a response from OpenAI
 async function getResponse(message) {
@@ -130,8 +136,33 @@ app.post("/execute", (req, res) => {
   }
 });
 
-// Start the server
+// Define Port
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+
+// Start server
+// Intialize connection to patdb -> startup node server
+// NOTE: MongoDB connection is defined in .env 
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("✅ Connected to patdb (MongoDB)");
+
+    // Routes
+    app.get("/users", async (req, res) => {
+      try {
+        const users = await User.find();
+        res.status(200).json(users);
+      } catch (err) {
+        console.error("Failed to fetch users:", err);
+        res.status(500).json({ error: "Failed to retrieve users" });
+      }
+    });
+
+    // Start server only after DB connection
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err);
+  });
