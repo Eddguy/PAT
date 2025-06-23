@@ -46,9 +46,14 @@ const client = new OpenAI({
 });
 
 // Import Routes
-const userRoutes = require("./routes/users"); 
-app.use("/users", userRoutes); 
+const userRoutes = require("./routes/users");
+const lessonsRouter = require('./routes/lessons');
+const courseOutlineRouter = require('./routes/courseOutline');
 
+// Enable routes
+app.use("/users", userRoutes); 
+app.use('/lessons', lessonsRouter);
+app.use('/course-outline', courseOutlineRouter);
 
 // Function to get a response from OpenAI
 async function getResponse(message) {
