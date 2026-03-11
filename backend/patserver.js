@@ -31,8 +31,11 @@
 const express = require("express");
 const OpenAI = require("openai");
 const cors = require("cors");
-const { exec } = require("child_process"); // Import exec for Python execution
 const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
+const { spawn } = require("child_process");
+const crypto = require("crypto");
 require("dotenv").config();
 
 // Initialize express
@@ -118,27 +121,49 @@ app.post("/execute", (req, res) => {
     return res.status(400).json({ error: "No code provided" });
   }
 
-  try {
-    // Decode Base64 to get the Python code
-    const decodedCode = Buffer.from(code, "base64").toString("utf-8");
+  const docker = spawn(
+  "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe",
+  [
+    "run",
+    "--rm",
+    "-i",
+    "--network",
+    "none",
+    "--memory=100m",
+    "--cpus=0.5",
+    "python:3.11-alpine",
+    "python",
+    "-"
+  ]
+);
 
-    // Create a temporary file to store the Python script
-    const tempFilePath = path.join(__dirname, "temp_script.py");
-    fs.writeFileSync(tempFilePath, decodedCode, "utf-8");
+  let stdout = "";
+  let stderr = "";
 
-    // Execute the script using python3
-    exec(`python3 ${tempFilePath}`, (error, stdout, stderr) => {
-      // Delete the temporary file after execution
-      fs.unlinkSync(tempFilePath);
+  docker.stdout.on("data", (data) => {
+    stdout += data.toString();
+  });
 
-      if (error) {
-        return res.status(500).json({ error: stderr || error.message });
-      }
-      res.json({ output: stdout.trim() });
+  docker.stderr.on("data", (data) => {
+    stderr += data.toString();
+  });
+
+  docker.on("close", (code) => {
+    if (stderr) {
+      return res.status(500).json({ error: stderr.trim() });
+    }
+
+    res.json({
+      output: stdout.trim()
     });
-  } catch (error) {
-    res.status(500).json({ error: "Invalid Base64 format" });
-  }
+  });
+
+  docker.on("error", (err) => {
+  console.error("Failed to start Docker:", err);
+});
+
+  docker.stdin.write(code);
+  docker.stdin.end();
 });
 
 // Define Port
